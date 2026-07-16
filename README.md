@@ -12,9 +12,7 @@
 
 It works with Claude Code, Codex, Aider, OpenCode, or any terminal workflow—without needing to know which program is running in the pane.
 
-> **Project status:** design and test plan are ready; implementation is the next milestone. See [DESIGN.md](DESIGN.md) for the architecture and TDD plan.
-
-<!-- Replace this placeholder with a real recorded GIF before the first public release. -->
+![Demo: picking a source, filtering prompts with a live preview, then pasting into the pane](demo.gif)
 
 ```text
 prefix + A
