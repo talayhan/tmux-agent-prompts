@@ -45,7 +45,7 @@ exit 0
 	mock_tmux_default_options
 	run "$PROJECT_ROOT/main.tmux"
 	[ "$status" -eq 0 ]
-	grep -q -- "bind-key A run-shell" "$TMUX_LOG"
+	grep -q -- "bind-key A display-popup" "$TMUX_LOG"
 	grep -q -- "main.sh" "$TMUX_LOG"
 }
 
@@ -53,7 +53,14 @@ exit 0
 	mock_tmux_with_option "@tmux-agent-prompts-launch-key" "Z"
 	run "$PROJECT_ROOT/main.tmux"
 	[ "$status" -eq 0 ]
-	grep -q -- "bind-key Z run-shell" "$TMUX_LOG"
+	grep -q -- "bind-key Z display-popup" "$TMUX_LOG"
+}
+
+@test "SHELL-001: binding uses a popup so fzf gets an attached terminal" {
+	mock_tmux_default_options
+	run "$PROJECT_ROOT/main.tmux"
+	[ "$status" -eq 0 ]
+	grep -q -- " -E " "$TMUX_LOG"
 }
 
 @test "SHELL-001: passes the plugin directory to main.sh so it can be relocated" {
