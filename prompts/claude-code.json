@@ -1,20 +1,573 @@
 {
   "prompts": [
     {
-      "id": "claude/investigate-build-failure",
-      "title": "Investigate a build failure",
-      "body": "Why is the build failing? @build.log",
-      "tags": ["debugging", "verification"],
+      "id": "claude/get-oriented-in-a",
+      "title": "Get oriented in a new repository",
+      "body": "give me an overview of this codebase: architecture, key directories, and how the pieces connect",
+      "tags": [
+        "understand"
+      ],
       "contributor": "Anthropic",
-      "source_url": "https://code.claude.com/docs/en/prompt-library"
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
     },
     {
-      "id": "claude/add-rate-limiting",
-      "title": "Add rate limiting",
-      "body": "Add rate limiting to the public API and make sure existing tests still pass.",
-      "tags": ["implementation", "testing"],
+      "id": "claude/explain-unfamiliar-code",
+      "title": "Explain unfamiliar code",
+      "body": "explain what src/scheduler/queue.ts does and how data flows through it. write it up as an HTML page with a diagram, then open it in my browser",
+      "tags": [
+        "understand"
+      ],
       "contributor": "Anthropic",
-      "source_url": "https://code.claude.com/docs/en/prompt-library"
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/find-where-something-happens",
+      "title": "Find where something happens",
+      "body": "where do we validate uploaded file types?",
+      "tags": [
+        "understand"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/see-what-depends-on",
+      "title": "Check what breaks before you delete",
+      "body": "what would break if I deleted the retryWithBackoff helper?",
+      "tags": [
+        "understand"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/trace-how-code-evolved",
+      "title": "Trace how code evolved",
+      "body": "look through the commit history of internal/auth/session.go and summarize how it evolved and why",
+      "tags": [
+        "understand"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/scope-a-change-before",
+      "title": "Scope a change before you start",
+      "body": "which files would I need to touch to add a dark mode toggle to settings?",
+      "tags": [
+        "understand",
+        "pm",
+        "design"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/ask-the-codebase-a",
+      "title": "Ask the codebase a product question",
+      "body": "I am a PM. walk me through what happens when a user clicks Export to PDF, from the UI down to the result",
+      "tags": [
+        "understand",
+        "pm"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/plan-a-multi-file",
+      "title": "Plan a multi-file change before touching code",
+      "body": "plan how to refactor the payment module to support multiple currencies. list the files you would change, but don't edit anything yet",
+      "tags": [
+        "plan",
+        "pm",
+        "design"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/draft-a-spec-by",
+      "title": "Draft a spec by interview",
+      "body": "I want to build per-workspace rate limits. interview me about implementation, UX, edge cases, and tradeoffs until we have covered everything, then write the spec to SPEC.md",
+      "tags": [
+        "plan",
+        "pm"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/turn-a-meeting-into",
+      "title": "Turn a meeting into tickets",
+      "body": "read @meeting-notes.md and write up the action items, then create a Linear ticket for each with acceptance criteria",
+      "tags": [
+        "plan",
+        "pm"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/map-edge-cases-before",
+      "title": "Map edge cases before building",
+      "body": "list the error states, empty states, and edge cases for the file upload flow that the design needs to cover",
+      "tags": [
+        "plan",
+        "design",
+        "pm"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/turn-a-mockup-into",
+      "title": "Turn a mockup into a working prototype",
+      "body": "here is a mockup. build a working prototype I can click through, matching the layout and states shown",
+      "tags": [
+        "prototype",
+        "design",
+        "pm",
+        "marketing"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/implement-from-a-screenshot",
+      "title": "Implement from a screenshot and self-check",
+      "body": "implement this design, then take a screenshot of the result, compare it to the original, and fix any differences",
+      "tags": [
+        "prototype",
+        "design"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/follow-an-existing-pattern",
+      "title": "Follow an existing pattern",
+      "body": "look at how the GitHub webhook handler is implemented to understand the pattern, then build a Stripe webhook handler the same way",
+      "tags": [
+        "build"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/generate-docs-for-code",
+      "title": "Generate docs for undocumented code",
+      "body": "find the public functions in src/auth/ without JSDoc comments and add them, matching the style already used in the file",
+      "tags": [
+        "build",
+        "docs"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/add-a-small-well",
+      "title": "Add a small, well-defined feature",
+      "body": "add a /health endpoint that returns the app version and uptime",
+      "tags": [
+        "build"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/build-a-small-internal",
+      "title": "Build a small internal tool from scratch",
+      "body": "create a drag-and-drop Kanban board with three columns using HTML, CSS, and vanilla JavaScript, then open it in my browser",
+      "tags": [
+        "build",
+        "pm",
+        "design",
+        "marketing",
+        "docs"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/work-an-issue-end",
+      "title": "Work an issue end to end",
+      "body": "read issue #312, implement the fix, and run the tests",
+      "tags": [
+        "build"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/find-and-update-copy",
+      "title": "Find and update copy across the codebase",
+      "body": "find every place we say \"Sign up free\" or a close variant, show me each one in context, then update them all to \"Start free trial\". leave tests and the changelog alone",
+      "tags": [
+        "build",
+        "design",
+        "docs",
+        "marketing"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/draft-from-past-examples",
+      "title": "Draft a document from past examples",
+      "body": "read the privacy impact assessments in legal/pia/ to learn the structure and voice, then draft a new one for the new analytics integration",
+      "tags": [
+        "build",
+        "docs",
+        "marketing",
+        "pm"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-uses-claude-legal"
+    },
+    {
+      "id": "claude/write-tests-run-them",
+      "title": "Write tests, run them, fix failures",
+      "body": "write tests for app/parsers/feed.py, run them, and fix any failures",
+      "tags": [
+        "test"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/drive-implementation-from-tests",
+      "title": "Drive implementation from tests",
+      "body": "write tests for the password reset flow first, then implement it until they pass",
+      "tags": [
+        "test"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://resources.anthropic.com/hubfs/Scaling%20agentic%20coding%20across%20your%20organization.pdf"
+    },
+    {
+      "id": "claude/fill-gaps-from-a",
+      "title": "Fill gaps from a coverage report",
+      "body": "read coverage/coverage-summary.json and add tests for the lowest-covered files until each is above 80%",
+      "tags": [
+        "test"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/migrate-a-pattern-across",
+      "title": "Migrate a pattern across the codebase",
+      "body": "migrate everything from the old logging API to the structured logger: identify every place that needs to change, then make the changes",
+      "tags": [
+        "refactor"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/port-code-between-languages",
+      "title": "Port code to another language",
+      "body": "port this Python module to Rust, keeping the same public API and test behavior",
+      "tags": [
+        "refactor"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/optimize-against-a-measurable",
+      "title": "Optimize against a measurable target",
+      "body": "optimize the search query to bring p95 latency from 2s down to under 500ms",
+      "tags": [
+        "refactor",
+        "data"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://resources.anthropic.com/hubfs/Scaling%20agentic%20coding%20across%20your%20organization.pdf"
+    },
+    {
+      "id": "claude/fix-a-precise-visual",
+      "title": "Fix a precise visual bug",
+      "body": "the login button extends 20px beyond the card border on mobile. fix it.",
+      "tags": [
+        "refactor",
+        "design"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://resources.anthropic.com/hubfs/Scaling%20agentic%20coding%20across%20your%20organization.pdf"
+    },
+    {
+      "id": "claude/review-your-changes-before",
+      "title": "Review your changes before you commit",
+      "body": "review my uncommitted changes and flag anything that looks risky before I commit",
+      "tags": [
+        "review"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/review-a-pull-request",
+      "title": "Review a pull request",
+      "body": "review PR #247 and summarize what changed, then list any concerns",
+      "tags": [
+        "review"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/review-infrastructure-changes-before",
+      "title": "Review infrastructure changes before applying",
+      "body": "here is my Terraform plan output. what is this going to do, and is anything here going to cause problems?",
+      "tags": [
+        "review",
+        "security",
+        "ops"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/run-a-security-review",
+      "title": "Run a security review with a subagent",
+      "body": "use a subagent to review src/api/ for security issues and report what it finds",
+      "tags": [
+        "review",
+        "security"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/review-content-before-sending",
+      "title": "Catch issues before formal review",
+      "body": "review launch-post.md for unsupported claims, missing attributions, and brand-guideline issues and list anything I should fix before it goes to legal",
+      "tags": [
+        "review",
+        "marketing",
+        "docs"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-uses-claude-legal"
+    },
+    {
+      "id": "claude/course-correct-a-wrong",
+      "title": "Course-correct a wrong approach",
+      "body": "that is not right: the function signature needs to stay backward-compatible. try a different approach",
+      "tags": [
+        "steer"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/narrow-the-scope-of",
+      "title": "Narrow the scope of a change",
+      "body": "that is too much. keep only the changes to the validation logic in src/forms/ and undo your other edits",
+      "tags": [
+        "steer"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/turn-a-correction-into",
+      "title": "Turn a correction into a rule",
+      "body": "you keep using default exports when this project uses named exports. add a rule to CLAUDE.md so this stops happening",
+      "tags": [
+        "steer"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/resolve-merge-conflicts",
+      "title": "Resolve merge conflicts",
+      "body": "resolve the merge conflicts in this branch and explain what you kept from each side",
+      "tags": [
+        "git"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/commit-with-a-generated",
+      "title": "Commit with a generated message",
+      "body": "commit these changes with a message that summarizes what I did",
+      "tags": [
+        "git"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/open-a-pull-request",
+      "title": "Open a pull request from a ticket",
+      "body": "find the Linear ticket about the login timeout and open a PR that implements it",
+      "tags": [
+        "git"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/draft-release-notes-from",
+      "title": "Draft release notes from git history",
+      "body": "compare v2.3.0 to v2.4.0 and draft release notes grouped by feature, fix, and breaking change",
+      "tags": [
+        "release",
+        "pm",
+        "docs",
+        "marketing"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/write-a-ci-workflow",
+      "title": "Write a CI workflow",
+      "body": "write a GitHub Actions workflow that runs the tests and deploys to staging on every push to main",
+      "tags": [
+        "release",
+        "ops"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/find-and-fix-a",
+      "title": "Find and fix a failing test",
+      "body": "the UserAuth test is failing, find out why and fix it",
+      "tags": [
+        "debug"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/investigate-a-reported-error",
+      "title": "Investigate a reported error",
+      "body": "users are seeing 500 errors on /api/settings. investigate and tell me what is going on",
+      "tags": [
+        "debug",
+        "ops"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/fix-a-build-error",
+      "title": "Fix a build error at the root",
+      "body": "here is a build error. fix the root cause and verify the build succeeds",
+      "tags": [
+        "debug",
+        "ops"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/investigate-a-production-incident",
+      "title": "Investigate a production incident",
+      "body": "the checkout endpoint started returning 500s an hour ago. check the logs, recent deploys, and config changes, then tell me the most likely cause",
+      "tags": [
+        "debug",
+        "ops",
+        "security"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/diagnose-from-a-console",
+      "title": "Diagnose from a console screenshot",
+      "body": "here is a screenshot of the GCP Kubernetes dashboard. walk me through why this pod is failing and give me the exact commands to fix it",
+      "tags": [
+        "debug",
+        "ops",
+        "data"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/query-logs-in-plain",
+      "title": "Query logs in plain English",
+      "body": "show me all failed logins for the auth service over the past 24 hours. write the query, run it, and tell me what stands out",
+      "tags": [
+        "debug",
+        "security",
+        "ops",
+        "data"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-uses-claude-cybersecurity"
+    },
+    {
+      "id": "claude/analyze-a-data-file",
+      "title": "Analyze a data file",
+      "body": "read @reports/q1-signups.csv, summarize the key patterns, and write the results to an HTML page with charts, then open it in my browser",
+      "tags": [
+        "data",
+        "pm",
+        "marketing"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/generate-variations-from-performance",
+      "title": "Generate variations from performance data",
+      "body": "read @ads-performance.csv, find the underperforming headlines, and generate 20 new variations that stay under 90 characters",
+      "tags": [
+        "data",
+        "marketing"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    },
+    {
+      "id": "claude/turn-a-recurring-task",
+      "title": "Turn a recurring task into a skill",
+      "body": "create a /ship skill for this project that runs the linter and tests, then drafts a commit message",
+      "tags": [
+        "automate"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/add-a-hook-for",
+      "title": "Add a hook for repeat behavior",
+      "body": "write a hook that runs prettier after every edit to a .ts or .tsx file",
+      "tags": [
+        "automate"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/best-practices"
+    },
+    {
+      "id": "claude/connect-a-tool-with",
+      "title": "Connect a tool with MCP",
+      "body": "set up the Sentry MCP server so you can read my error reports directly",
+      "tags": [
+        "automate"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/common-workflows"
+    },
+    {
+      "id": "claude/capture-what-to-remember",
+      "title": "Capture what to remember for next time",
+      "body": "summarize what we did this session and suggest what to add to CLAUDE.md",
+      "tags": [
+        "automate",
+        "pm",
+        "docs"
+      ],
+      "contributor": "Anthropic",
+      "source_url": "https://claude.com/blog/how-anthropic-teams-use-claude-code"
     }
   ]
 }
