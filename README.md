@@ -2,6 +2,7 @@
 
 > Your prompt library, one tmux keybinding away.
 
+[![CI](https://github.com/talayhan/tmux-agent-prompts/actions/workflows/ci.yml/badge.svg)](https://github.com/talayhan/tmux-agent-prompts/actions/workflows/ci.yml)
 [![tmux](https://img.shields.io/badge/tmux-3.2%2B-1BB91F?logo=tmux&logoColor=white)](https://github.com/tmux/tmux)
 [![fzf](https://img.shields.io/badge/fzf-required-ff5f5f?logo=gnu-bash&logoColor=white)](https://github.com/junegunn/fzf)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
