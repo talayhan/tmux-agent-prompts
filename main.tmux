@@ -13,9 +13,11 @@ readonly DEFAULT_LAUNCH_KEY="A"
 main() {
 	local launch_key
 	launch_key="$(tmux_option_or_default "@tmux-agent-prompts-launch-key" "$DEFAULT_LAUNCH_KEY")"
-	# -E: close the popup as soon as main.sh exits. run-shell has no pty, so
-	# fzf can't render there; a popup gives the picker an attached terminal.
-	tmux bind-key "$launch_key" display-popup -E -w 80% -h 80% "$CURRENT_DIR/main.sh '#{pane_id}'"
+	# run-shell's shell-command is format-expanded by tmux (documented), so
+	# #{pane_id} resolves here. display-popup's shell-command is NOT format-
+	# expanded (undocumented for that purpose) - main.sh takes the already-
+	# resolved pane id and opens the popup itself with a literal argument.
+	tmux bind-key "$launch_key" run-shell "$CURRENT_DIR/main.sh '#{pane_id}'"
 }
 
 main
