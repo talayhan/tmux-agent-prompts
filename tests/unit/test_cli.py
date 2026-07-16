@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from tmux_agent_prompts import cli
+from tmux_agent_prompts.cache import CacheError
 from tmux_agent_prompts.models import Prompt
 from tmux_agent_prompts.registry import Paths, Source
 
@@ -98,3 +99,23 @@ def test_unknown_source_returns_error(monkeypatch, capsys) -> None:  # type: ign
     assert cli.main(["prompts", "--source", "missing"]) == 2
 
     assert "unknown prompt source" in capsys.readouterr().err
+
+
+def test_cache_refresh_failure_is_reported_not_raised(monkeypatch, capsys) -> None:  # type: ignore[no-untyped-def]
+    monkeypatch.setattr(
+        cli, "paths_from_environment", lambda: Paths(Path("registry"), Path("cache"))
+    )
+    monkeypatch.setattr(
+        cli,
+        "load_registry",
+        lambda _: [Source("prompts-chat", "prompts.chat", "remote-csv", url="https://x.test")],
+    )
+
+    def raise_cache_error(*args, **kwargs):  # type: ignore[no-untyped-def]
+        raise CacheError("could not refresh https://x.test: no network")
+
+    monkeypatch.setattr(cli, "prompts_for_source", raise_cache_error)
+
+    assert cli.main(["prompts", "--source", "prompts-chat"]) == 2
+
+    assert "could not refresh" in capsys.readouterr().err

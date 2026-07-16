@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pytest
 
+from tmux_agent_prompts.adapters import csv_source
 from tmux_agent_prompts.adapters.csv_source import CsvSourceError, parse_prompts_chat
 
 CSV = (
@@ -38,3 +39,23 @@ def test_csv_requires_expected_headers() -> None:
 def test_csv_rejects_blank_required_values() -> None:
     with pytest.raises(CsvSourceError, match="row 2"):
         parse_prompts_chat("act,prompt,for_devs,type,contributor\n,,TRUE,TEXT,Ada\n")
+
+
+def test_csv_handles_fields_larger_than_the_python_default_limit() -> None:
+    huge_body = "x" * 200_000
+    csv_text = f"act,prompt,for_devs,type,contributor\nBig,{huge_body},FALSE,TEXT,Ada\n"
+
+    prompts = parse_prompts_chat(csv_text)
+
+    assert len(prompts[0].body) == 200_000
+
+
+def test_csv_error_beyond_the_configured_limit_is_reported_not_raised(monkeypatch) -> None:
+    monkeypatch.setattr(csv_source, "_CSV_FIELD_SIZE_LIMIT", 15)
+    csv_text = (
+        "act,prompt,for_devs,type,contributor\n"
+        "Big,this field is over fifteen characters,FALSE,TEXT,Ada\n"
+    )
+
+    with pytest.raises(CsvSourceError, match="could not parse CSV source"):
+        parse_prompts_chat(csv_text)

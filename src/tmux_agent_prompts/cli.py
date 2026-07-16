@@ -7,6 +7,7 @@ import json
 import sys
 from pathlib import Path
 
+from tmux_agent_prompts.cache import CacheError
 from tmux_agent_prompts.models import Prompt
 from tmux_agent_prompts.registry import load_registry, paths_from_environment
 from tmux_agent_prompts.service import prompts_for_source, source_by_id
@@ -58,7 +59,7 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print(_preview(prompt))
         return 0
-    except (OSError, ValueError) as error:
+    except (OSError, ValueError, CacheError) as error:
         print(f"tmux-agent-prompts: {error}", file=sys.stderr)
         return 2
 
