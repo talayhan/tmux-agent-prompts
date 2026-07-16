@@ -1,0 +1,20 @@
+{
+  "prompts": [
+    {
+      "id": "claude/investigate-build-failure",
+      "title": "Investigate a build failure",
+      "body": "Why is the build failing? @build.log",
+      "tags": ["debugging", "verification"],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/prompt-library"
+    },
+    {
+      "id": "claude/add-rate-limiting",
+      "title": "Add rate limiting",
+      "body": "Add rate limiting to the public API and make sure existing tests still pass.",
+      "tags": ["implementation", "testing"],
+      "contributor": "Anthropic",
+      "source_url": "https://code.claude.com/docs/en/prompt-library"
+    }
+  ]
+}

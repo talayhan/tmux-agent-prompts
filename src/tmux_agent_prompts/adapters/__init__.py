@@ -1,0 +1,1 @@
+"""Prompt-source adapters."""

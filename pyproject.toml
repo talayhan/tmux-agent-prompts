@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tmux-agent-prompts"
+version = "0.0.0"
+description = "A source-aware tmux prompt picker for terminal agents"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers --cov=tmux_agent_prompts --cov-branch --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=95"
+testpaths = ["tests/unit"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["tmux_agent_prompts"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 95
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+mypy_path = "src"
+packages = ["tmux_agent_prompts"]
