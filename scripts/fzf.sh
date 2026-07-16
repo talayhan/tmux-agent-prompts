@@ -11,16 +11,12 @@ source "$FZF_SCRIPT_DIR/common.sh"
 readonly FZF_DEFAULT_OPTS_TEXT="--height=80% --layout=reverse --border"
 
 fzf_configured_options() {
-	local -n out_array="$1"
-	local raw
-	raw="$(tmux_option_or_default "@tmux-agent-prompts-fzf-options" "$FZF_DEFAULT_OPTS_TEXT")"
-	# shellcheck disable=SC2206,SC2034 # word-split flag string into the caller's nameref array
-	out_array=($raw)
+	tmux_option_or_default "@tmux-agent-prompts-fzf-options" "$FZF_DEFAULT_OPTS_TEXT"
 }
 
 fzf_pick_source() {
-	local extra_opts selection
-	fzf_configured_options extra_opts
+	local extra_opts=() selection
+	read -ra extra_opts <<<"$(fzf_configured_options)"
 	selection="$(
 		run_cli sources --format fzf |
 			fzf --delimiter=$'\t' --with-nth=2 --prompt="Source> " "${extra_opts[@]}"
@@ -37,8 +33,8 @@ fzf_pick_prompt() {
 	fi
 
 	local preview_cmd="$FZF_SCRIPT_DIR/prompt-preview.sh $source_id {1}"
-	local extra_opts selection
-	fzf_configured_options extra_opts
+	local extra_opts=() selection
+	read -ra extra_opts <<<"$(fzf_configured_options)"
 	selection="$(
 		run_cli "${cli_args[@]}" |
 			fzf --delimiter=$'\t' --with-nth=2,3 --prompt="Prompt> " \

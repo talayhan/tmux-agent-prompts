@@ -92,7 +92,8 @@ def _preview(prompt: Prompt) -> str:
         metadata.append(f"Contributor: {prompt.contributor}")
     if prompt.source_url:
         metadata.append(f"Source: {prompt.source_url}")
-    return f"{prompt.title}\n{'─' * len(prompt.title)}\n{prompt.body}\n\n{'\n'.join(metadata)}"
+    metadata_block = "\n".join(metadata)
+    return f"{prompt.title}\n{'─' * len(prompt.title)}\n{prompt.body}\n\n{metadata_block}"
 
 
 if __name__ == "__main__":  # pragma: no cover
